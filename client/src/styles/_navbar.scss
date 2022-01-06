@@ -1,0 +1,87 @@
+nav {
+  width: 100vw;
+  max-width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  background-color: $element-1; 
+  color: white;
+  position: relative;
+
+  .logo-container {
+    padding-left: 0.5rem;
+    width: 10%;
+    @include media_for_large_screen {
+      padding-left: 5rem;
+    }
+    .logo {
+      width: 40px;
+      height: auto;
+    }
+  }
+  .main-menu-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    a {
+      text-decoration: none;
+      color: inherit;
+      font-size: $base;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .dropdown {
+      cursor: pointer;
+      font-size: $base;
+      &:hover .dropdown-menu {
+        display: flex;
+      }
+    }
+    .dropdown-menu {
+      border-radius: 0 0 5px 5px;
+      background-color: $element-1;
+      display: none;
+      flex-direction: column;
+      padding: 1rem;
+      position: absolute;
+      z-index: 1;
+      & > * {
+        line-height: 1.5;
+      }
+    }
+  }
+  .personal-menu-container {
+    display: flex;
+    justify-content: space-evenly;
+    #register-btn {
+      display: none;
+    }
+    @include media_for_mobile {
+      width: 25%;
+    }
+    @include media_for_above_mobile {
+      padding-right: 2rem;
+    }
+    @include media_for_tablet {
+      width: 30%;
+      padding-right: 1rem;
+      #register-btn {
+        display: initial;
+      }
+    }
+    @include media_for_desktop {
+      width: 20%;
+    }
+  };
+
+  //Logged In elements
+  .welcome-message {
+    width: 7%
+  };
+
+  #logout-btn {
+    margin-right: 5rem;
+  }
+}

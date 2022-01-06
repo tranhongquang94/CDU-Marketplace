@@ -1,0 +1,96 @@
+//Font
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+//Font Size
+$base-mobile: 1.05rem;
+$base: 1.25rem;
+$h1: 3rem;
+$h1-mobile: 2.00rem;
+
+// Screen size
+$mobile: 500px;
+$tablet: 768px;
+$desktop: 1050px;
+$large-screen: 1250px;
+$ultra-large-screen: 1450px;
+
+//Color
+$primary-color: hsl(220, 100%, 63%);
+$primary-color-hover: hsl(216, 100%, 50%);
+
+$element-1: rgba(0,0,0,0.7);
+
+//Cards
+$box-shadow: 0 0 3px rgba(0,0,0,0.5); 
+$box-shadow-on-hover:  0 0 10px rgba(0,0,0,0.5);
+
+$box-shadow-on-btn: 0 0 3px hsl(220, 100%, 63%);
+
+//Mixin
+@mixin media_for_mobile {
+  @media only screen and (max-width: $mobile) {
+    @content;
+  }
+}
+@mixin media_for_above_mobile {
+  @media only screen and (min-width: $mobile) {
+    @content;
+  }
+}
+@mixin media_for_tablet {
+  @media only screen and (min-width: $tablet) {
+    @content;
+  }
+}
+@mixin media_for_desktop {
+  @media only screen and (min-width: $desktop) {
+    @content;
+  }
+}
+@mixin media_for_large_screen {
+  @media only screen and (min-width: $large-screen) {
+    @content;
+  }
+}
+@mixin media_for_ultra_large_screen {
+  @media only screen and (min-width: $ultra-large-screen) {
+    @content;
+  }
+}
+
+body {
+  font-family: "Roboto", "sans-serif";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+//Button style
+.btn {
+  border: 0;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1em;
+  transform: perspective(50px) translateZ(0);
+  transition: transform 0.25s linear;
+  &:hover {
+    transform: perspective(50px) translateZ(3px);
+  }
+}
+
+.cta-btn {
+  background-color: $primary-color;
+  color: white;
+
+  &:hover {
+    background-color: $primary-color-hover;
+  }
+}
+
+input, select {
+  font-family: inherit;
+  box-sizing: border-box;
+  border-radius: 5px;
+}

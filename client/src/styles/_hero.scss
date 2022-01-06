@@ -1,0 +1,64 @@
+.hero-container {
+  position: relative;
+  picture {
+    display: flex;
+    height: 300px;
+    overflow: hidden;
+    @include media_for_mobile {
+      height: 200px;
+    }
+    img {
+      height: 100%;
+      width: auto;
+      //overflow: hidden;
+    };
+    //Overlay
+    &::after {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color: #000000, $alpha: 0.5)
+    }
+  };
+  
+  .hero-text {
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    color: white;
+    @include media_for_mobile {
+      top: 10%;
+    };
+
+    h1 {
+      font-size: $h1;
+      margin-bottom: 0;
+      @include media_for_mobile {
+        font-size: $h1-mobile;
+      }
+    };
+    p {
+      margin-top: 0;
+      font-size: $base;
+      @include media_for_mobile {
+        font-size: $base-mobile;
+      }
+    }
+  };
+  a {
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 5%;
+    top: 60%;
+    @include media_for_mobile {
+      top: 70%;
+      font-size: 1.25rem;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+.popular-destination-section-container {
+  display: flex;
+  flex-direction: column;
+
+  .image-section-wrapper  {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-self: center;
+    row-gap: 10px;
+    column-gap: 30px;
+
+    @include media_for_mobile {
+      grid-template-columns: 1fr;
+    }
+
+    .image-wrapper {
+      position: relative;
+      transition: .2s ease-in-out;
+
+      img {
+        border-radius: 25px;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+      }
+
+      span {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-weight: 400;
+        font-size: 2.5rem;
+        z-index: 100;
+        cursor: pointer;
+        @include media_for_mobile {
+          font-size: $h1-mobile; 
+        }
+      };
+
+      .image-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 25px;
+        cursor: pointer;
+      };
+      &:hover {
+        transform: scale(1.03)
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+// Brand
+.brand-logo-container {
+  display: grid;
+  list-style-type: none;
+  padding: 0;
+
+  .single-brand {
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+        }
+
+        @include media_for_mobile {
+          width: 100px;
+          height: 100px;
+        }
+
+        @include media_for_above_mobile {
+          width: 125px;
+          height: 125px;
+        }
+
+        @include media_for_desktop {
+          width: 150px;
+          height: 150px;
+        }
+      }
+    }
+  }
+
+  @include media_for_mobile {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+  }
+  @include media_for_above_mobile {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include media_for_tablet {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @include media_for_large_screen {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  @include media_for_ultra_large_screen {
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 15px;
+  }
+}
+
+//Vehicle Types
+.vehicle-type-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .single-vehicle-type {
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 3px solid black;
+      width: 150px;
+      height: 150px;
+       
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: .75rem;
+        width: 100px;
+        height: 50px;
+        img {
+          width: 100%;
+        }
+      };
+
+      span {
+        font-weight: bold;
+        font-size: $base;
+      }
+      &:hover {
+        box-shadow: $box-shadow-on-hover;
+      }
+    }
+  };
+
+  @include media_for_mobile {
+    & > * {
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+  @include media_for_above_mobile {
+    & > * {
+      margin: unset;
+    }
+    gap: 15px;
+  }
+}

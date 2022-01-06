@@ -1,0 +1,19 @@
+{
+  "name": "cdu-marketplace",
+  "version": "1.0.0",
+  "description": "CDU Marketplace for Students, Businesses",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Quang",
+  "license": "ISC",
+  "dependencies": {
+    "cloudinary": "^1.28.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "mongodb": "^4.2.2",
+    "mongoose": "^6.1.5",
+    "path": "^0.12.7"
+  }
+}

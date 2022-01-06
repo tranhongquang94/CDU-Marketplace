@@ -1,0 +1,72 @@
+.item-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 15px;
+  min-height: 40vh;
+  margin: 3rem auto;
+  padding: 2rem 0;
+  width: 70%;
+  max-width: 450px;
+
+  input, button {
+    width: 80%;
+    font-size: inherit;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+  }
+
+  #name, #price, #location, #description{
+    border: 0.5px solid lightgray;
+    outline: none;
+    margin-bottom: 1.5rem;
+    &::placeholder {
+      opacity: 0.7;
+    } 
+    &#location {
+      margin-bottom: 1.5rem; 
+    } 
+  };
+
+  #description {
+    border-radius: 15px;
+    font-size: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    width: 80%;
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+  }
+
+  #imageUpload {
+    width: 0.1px;
+	  height: 0.1px;
+	  opacity: 0;
+	  overflow: hidden;
+	  position: absolute;
+	  z-index: -1;
+
+    & + label {
+      font-size: inherit;
+      border-radius: 15px;
+      padding: 0.5rem 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  button, #imageUpload + label {
+    box-shadow: $box-shadow-on-btn;
+    border: none;
+    background-color: $primary-color;
+    cursor: pointer;
+    color: white;
+    &:hover {
+      background-color: $primary-color-hover;
+    }
+  }
+
+  button {
+    margin-bottom: .5rem;
+  }
+}
