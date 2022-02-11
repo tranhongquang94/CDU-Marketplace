@@ -1,14 +1,16 @@
-import React from 'react'
+import React from "react";
 import { Hero, Searchbar, RecentlyListed } from "../components/general";
-import {PopularDestination, AccomodationType} from "../components/specific/accomodation";
+import {
+  PopularDestination,
+  AccomodationType,
+} from "../components/specific/accomodation";
 
 function Accomodation({
   heroCover,
   searchCategories,
-  recentlyListed,
   closedDropDown,
   setClosedDropDown,
-  isLoggedIn
+  isLoggedIn,
 }) {
   return (
     <>
@@ -21,11 +23,11 @@ function Accomodation({
       />
       <main>
         <PopularDestination />
-        <RecentlyListed data={recentlyListed} />
+        <RecentlyListed />
         <AccomodationType />
       </main>
     </>
   );
 }
 
-export default Accomodation
+export default Accomodation;

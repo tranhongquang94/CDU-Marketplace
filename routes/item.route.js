@@ -9,7 +9,7 @@ let Category = require("../models/category.model");
  */
 
 //Get list of items
-router.route("/").get(async (req, res) => {
+router.route("/list").get(async (req, res) => {
   try {
     const listOfItems = await Item.find();
     res.status(200).json(listOfItems);
@@ -48,7 +48,7 @@ router.route("/add").post(async (req, res) => {
     category,
     jobCategory,
     description,
-    postedBy
+    postedBy,
   });
 
   try {
@@ -82,9 +82,11 @@ router.route("/timestamp-signature").get(async (req, res) => {
 //Recent Cars Item
 router.route("/recent/cars").get(async (req, res) => {
   try {
-    const result = await Item.find({ category: "cars" }).sort({
-      createdAt: -1,
-    }).limit(4);
+    const result = await Item.find({ category: "cars" })
+      .sort({
+        createdAt: -1,
+      })
+      .limit(4);
     res.json(result);
   } catch (error) {
     res.status(400);
@@ -95,9 +97,9 @@ router.route("/recent/cars").get(async (req, res) => {
 /**
  * Jobs
  */
-router.route("/job").get(async (req,res) => {
+router.route("/job").get(async (req, res) => {
   try {
-    const result = await Item.find({category: "jobs"});
+    const result = await Item.find({ category: "jobs" });
     if (result) {
       res.status(200).send(result);
     } else {
@@ -109,19 +111,38 @@ router.route("/job").get(async (req,res) => {
   }
 });
 
-router.route("/job/:category").get(async (req,res) => {
-    const {category} = req.params;
-    try {
-      const result = await Item.find({category: "jobs",jobCategory: category});
-      if (result.length) {
-        res.status(200).send(result);
-      } else {
-        res.status(200).send("No Jobs Found.");
-      }
-    } catch (error) {
-      res.status(400);
-      console.log(error);
-    } 
+router.route("/job/:category").get(async (req, res) => {
+  const { category } = req.params;
+  try {
+    const result = await Item.find({ category: "jobs", jobCategory: category });
+    if (result.length) {
+      res.status(200).send(result);
+    } else {
+      res.status(200).send("No Jobs Found.");
+    }
+  } catch (error) {
+    res.status(400);
+    console.log(error);
+  }
+});
+
+/**
+ * Accomodation
+ */
+
+//Recent accomodation
+router.route("/recent/accomodation").get(async (req, res) => {
+  try {
+    const result = await Item.find({ category: "accomodation" })
+      .sort({
+        createdAt: -1,
+      })
+      .limit(4);
+    res.json(result);
+  } catch (error) {
+    res.status(400);
+    console.log(error);
+  }
 });
 
 /**
@@ -130,8 +151,8 @@ router.route("/job/:category").get(async (req,res) => {
 
 //Get Item by ID
 
-router.route("/display/:id").get(async (req,res) => {
-  const {id} = req.params;
+router.route("/display/:id").get(async (req, res) => {
+  const { id } = req.params;
   try {
     const result = await Item.findById(id);
     if (result) {
@@ -141,14 +162,13 @@ router.route("/display/:id").get(async (req,res) => {
     }
   } catch (error) {
     res.status(400);
-    console.log(error)
+    console.log(error);
   }
 });
 
-
 //Get Item by Name
-router.route("/list/:name").get(async (req,res) => {
-  const {name} = req.params;
+router.route("/list/:name").get(async (req, res) => {
+  const { name } = req.params;
   try {
     const results = await Item.find({
       name: { $regex: name, $options: "i" },
@@ -162,46 +182,47 @@ router.route("/list/:name").get(async (req,res) => {
     res.status(400);
     console.log(error);
   }
-})
+});
 
 //Suggest result based on what user type
-router.route("/suggest").post(async (req,res) => {
+router.route("/suggest").post(async (req, res) => {
   const searchQuery = req.body.data;
   try {
-    const result = await Item.find({name: {"$regex": searchQuery, "$options" : "i"}}).limit(10);
+    const result = await Item.find({
+      name: { $regex: searchQuery, $options: "i" },
+    }).limit(10);
     if (result) {
       res.status(200).send(result);
     } else {
-      res.status(200).send("No results.")
+      res.status(200).send("No results.");
     }
   } catch (error) {
     res.status(400);
-    console.log(error)
+    console.log(error);
   }
 });
-
 
 /**
  * Get Number of ads in specific category
  */
 
-router.route("/getnumberads").post(async(req,res) => {
-  const {category} = req.body; 
+router.route("/getnumberads").post(async (req, res) => {
+  const { category } = req.body;
   try {
-    const result = await Item.countDocuments({'category': category});
-    const categoryList = await Category.find({'name': category});
-    const {_id, name, thumbnail} = categoryList[0];
+    const result = await Item.countDocuments({ category: category });
+    const categoryList = await Category.find({ name: category });
+    const { _id, name, thumbnail } = categoryList[0];
     res.status(200).json({
       _id,
-      name, 
+      name,
       thumbnail,
-      count : result
+      count: result,
     });
   } catch (error) {
     res
       .status(400)
       .send(`There was an error: ${error} in counting number of ads.`);
   }
-})
+});
 
 module.exports = router;

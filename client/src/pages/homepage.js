@@ -5,8 +5,6 @@ import { FeatureCategories, ItemList} from "../components/specific/homepage";
 function Homepage({
   heroCover,
   searchCategories,
-  recentlyListed,
-  itemList,
   closedDropDown,
   setClosedDropDown,
   isLoggedIn,
@@ -25,9 +23,9 @@ function Homepage({
         setClosedDropDown={setClosedDropDown}
       />
       <main>
-        <RecentlyListed data={recentlyListed} />
+        <RecentlyListed />
         <FeatureCategories />
-        <ItemList data={itemList} page="homepage" />
+        <ItemList page="homepage" />
       </main>
     </>
   );

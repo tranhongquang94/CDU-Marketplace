@@ -28,7 +28,7 @@ function PopularCategories({
       {jobList === "No Jobs Found for this category." ? (
         <div style={{ textAlign: "center" }}>{jobList}</div>
       ) : (
-        <ItemList data={jobList} />
+        <ItemList jobList={jobList}/>
       )}
     </section>
   );

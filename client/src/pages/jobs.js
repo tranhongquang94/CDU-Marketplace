@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Hero, Searchbar } from "../components/general";
 import { PopularCategories } from "../components/specific/jobs";
 import axios from "axios";
@@ -27,14 +27,6 @@ function Jobs({
     });
   };
 
-  useEffect(() => {
-    axios
-      .get("/item/job/")
-      .then((res) => {
-        setJobList(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
   return (
     <>
       <Hero page="jobs" cover={heroCover} isLoggedIn={isLoggedIn} />

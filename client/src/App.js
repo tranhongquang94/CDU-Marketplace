@@ -3,14 +3,10 @@ import "./styles/App.scss";
 import { NavBar, Footer} from "./components/general";
 import { Homepage, Cars, Jobs, Accomodation, NewItem, SingleItem, SearchResult } from "./pages";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import { data } from "./components/data/data.js";
-import axios from "axios";
-// import { Redirect, Switch } from "react-router";
+import { data }  from "./components/data/data.js";
 
 function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const [itemList, setItemList] = useState([]);
-  const [recentlyListed, setRecentlyListed] = useState([]);
   const [closedDropDown, setClosedDropDown] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
@@ -31,25 +27,6 @@ function App() {
     return () => window.removeEventListener("resize", setWidth);
   }, [screenWidth]);
 
-  useEffect(() => {
-    // Get data from database by calling to server API.
-    axios
-      .get("/item")
-      .then(res => {
-        setItemList(res.data);
-      })
-      .catch(err => console.log(err));
-
-    axios
-      .get("/item/recent")
-      .then(res => {
-        setRecentlyListed(res.data);
-      })
-      .catch(err => console.log(err))
-  }, []);
-
-  
-
   return (
     <Router>
       <div className="App" onClick={handleClick}>
@@ -69,8 +46,6 @@ function App() {
               screenWidth={screenWidth}
               heroCover={data.hero.image.homepage}
               searchCategories={data.navbar}
-              recentlyListed={recentlyListed}
-              itemList={itemList}
               closedDropDown={closedDropDown}
               setClosedDropDown={setClosedDropDown}
               isLoggedIn={isLoggedIn}
@@ -103,7 +78,6 @@ function App() {
               screenWidth={screenWidth}
               heroCover={data.hero.image.accomodation}
               searchCategories={data.accomodationCategories}
-              recentlyListed={recentlyListed}
               closedDropDown={closedDropDown}
               setClosedDropDown={setClosedDropDown}
               isLoggedIn={isLoggedIn}
