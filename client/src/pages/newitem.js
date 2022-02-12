@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Select from "react-select";
+import { useSelector } from "react-redux";
 
-function NewItem({ data, username }) {
+function NewItem({ data }) {
   const { navbar, jobsCategories } = data;
   const [selectedCategories, setSelectedCategories] = useState("");
   const [currentMake, setCurrentMake] = useState("");
   const [currentModel, setCurrentModel] = useState("");
   const [imageSelected, setImageSelected] = useState("");
+  const username = useSelector((state) => state.user.username);
 
   const { carMakeAndModel } = data;
   //Get list of car make from object keys.
@@ -26,37 +28,39 @@ function NewItem({ data, username }) {
   };
 
   //Handle Form submit
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     if (!document.getElementById("thumbnail").value) {
       e.preventDefault();
-      alert('Please upload your item\'s image');
-    };
+      alert("Please upload your item's image");
+    }
   };
 
   //Change label text and save image to state
-  const handleSelectedImage = file => {
+  const handleSelectedImage = (file) => {
     setImageSelected(file);
     let fileName = file.name;
     if (fileName.length >= 20) {
-      fileName = fileName.substring(0, 15) + "..."
+      fileName = fileName.substring(0, 15) + "...";
     }
-    document.getElementById('label').innerHTML = fileName;
-  }
+    document.getElementById("label").innerHTML = fileName;
+  };
 
   //Upload Image to cloud storage
-  const uploadImage = e => {
+  const uploadImage = (e) => {
     e.preventDefault();
     // Use form data object to send files rather than json
     let formData = new FormData();
     formData.append("file", imageSelected);
-    formData.append("upload_preset","w9pu9eax")
-    axios.post("https://api.cloudinary.com/v1_1/dixd5lojp/image/upload", formData)
-    .then(res => {
-      document.getElementById("thumbnail").value = res.data.secure_url;
-      alert("Successfully uploaded image.");
-    }).catch(err => alert("Error upload your image, please try again."));
-  }
-  
+    formData.append("upload_preset", "w9pu9eax");
+    axios
+      .post("https://api.cloudinary.com/v1_1/dixd5lojp/image/upload", formData)
+      .then((res) => {
+        document.getElementById("thumbnail").value = res.data.secure_url;
+        alert("Successfully uploaded image.");
+      })
+      .catch((err) => alert("Error upload your image, please try again."));
+  };
+
   // Styling object for Select Component
   const customStyles = {
     container: (provided) => ({
@@ -72,7 +76,12 @@ function NewItem({ data, username }) {
   };
 
   return (
-    <form action="/item/add" method="POST" className="item-form" onSubmit={handleSubmit}>
+    <form
+      action="/item/add"
+      method="POST"
+      className="item-form"
+      onSubmit={handleSubmit}
+    >
       <input type="text" name="name" id="name" placeholder={`Item's name`} />
       <input
         type="number"
@@ -125,21 +134,36 @@ function NewItem({ data, username }) {
         />
       )}
 
-      {
-        selectedCategories === "accomodation" && (
-          <textarea name="description" id = "description" placeholder="Description" rows="4"/>
-        )
-      }
+      {selectedCategories === "accomodation" && (
+        <textarea
+          name="description"
+          id="description"
+          placeholder="Description"
+          rows="4"
+        />
+      )}
       <input type="text" name="location" id="location" placeholder="Location" />
-      <input type="hidden" name="thumbnail" id="thumbnail"/>
+      <input type="hidden" name="thumbnail" id="thumbnail" />
       <input type="hidden" name="category" id="category" />
-      <input type="hidden" name="username" id="username" value={username} required/>
-      
+      <input
+        type="hidden"
+        name="username"
+        id="username"
+        value={username}
+        required
+      />
+
       {/* Hidden input to record the job category and send to backend */}
       <input type="hidden" name="jobs-categories" id="jobs-categories" />
 
-      <input type="file" id="imageUpload" onChange={(e) => handleSelectedImage(e.target.files[0])}/>
-      <label htmlFor="imageUpload" id="label">Choose your thumbnail</label>
+      <input
+        type="file"
+        id="imageUpload"
+        onChange={(e) => handleSelectedImage(e.target.files[0])}
+      />
+      <label htmlFor="imageUpload" id="label">
+        Choose your thumbnail
+      </label>
       <button onClick={uploadImage}>Submit Image</button>
       <button type="submit">Post New Item</button>
     </form>

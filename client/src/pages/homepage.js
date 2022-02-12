@@ -1,27 +1,12 @@
-import React from 'react';
+import React from "react";
 import { Hero, Searchbar, RecentlyListed } from "../components/general";
-import { FeatureCategories, ItemList} from "../components/specific/homepage";
+import { FeatureCategories, ItemList } from "../components/specific/homepage";
 
-function Homepage({
-  heroCover,
-  searchCategories,
-  closedDropDown,
-  setClosedDropDown,
-  isLoggedIn,
-}) {
+function Homepage({ heroCover, searchCategories }) {
   return (
     <>
-      <Hero
-        page="homepage"
-        cover={heroCover}
-        isLoggedIn={isLoggedIn}
-      />
-      <Searchbar
-        page="homepage"
-        searchCategories={searchCategories}
-        closedDropDown={closedDropDown}
-        setClosedDropDown={setClosedDropDown}
-      />
+      <Hero page="homepage" cover={heroCover} />
+      <Searchbar page="homepage" searchCategories={searchCategories} />
       <main>
         <RecentlyListed />
         <FeatureCategories />
@@ -31,4 +16,4 @@ function Homepage({
   );
 }
 
-export default Homepage
+export default Homepage;

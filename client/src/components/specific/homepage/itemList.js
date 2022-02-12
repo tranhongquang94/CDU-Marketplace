@@ -3,7 +3,7 @@ import { ItemCard } from "../../general";
 import {
   useGetItemListQuery,
   useGetJobListQuery,
-} from "../../../redux/items/API/itemListAPI";
+} from "../../../redux/items/itemListAPI";
 
 function ItemList({ page, jobList }) {
   let itemList;

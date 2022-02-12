@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { usePostAccountLoginMutation } from "../../redux/account/accountLoginAPI";
 import { usePostAccountRegisterMutation } from "../../redux/account/accountRegisterAPI";
 
-function Modal({ tabOpen, closeModal, changeTab, login, logout }) {
+function Modal({ tabOpen, closeModal, changeTab, login }) {
   const [postAccountLogin] = usePostAccountLoginMutation();
   const [postAccountRegister] = usePostAccountRegisterMutation();
 

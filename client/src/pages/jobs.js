@@ -2,15 +2,9 @@ import React, { useState } from "react";
 import { Hero, Searchbar } from "../components/general";
 import { PopularCategories } from "../components/specific/jobs";
 import axios from "axios";
-import {data} from "../components/data/data";
+import { data } from "../components/data/data";
 
-function Jobs({
-  heroCover,
-  searchCategories,
-  closedDropDown,
-  setClosedDropDown,
-  isLoggedIn
-}) {
+function Jobs({ heroCover, searchCategories }) {
   const [jobList, setJobList] = useState([]);
   const [currentTabOpen, setCurrentTabOpen] = useState("");
   const { featuredJobsCategories } = data;
@@ -29,13 +23,8 @@ function Jobs({
 
   return (
     <>
-      <Hero page="jobs" cover={heroCover} isLoggedIn={isLoggedIn} />
-      <Searchbar
-        page="jobs"
-        searchCategories={searchCategories}
-        closedDropDown={closedDropDown}
-        setClosedDropDown={setClosedDropDown}
-      />
+      <Hero page="jobs" cover={heroCover} />
+      <Searchbar page="jobs" searchCategories={searchCategories} />
       <main>
         <PopularCategories
           jobList={jobList}

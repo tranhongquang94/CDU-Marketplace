@@ -4,32 +4,32 @@ import { ItemCardLong } from "./";
 import {
   useRecentItemListQuery,
   useRecentCarsListQuery,
-  useRecentAccomodationQuery
-} from "../../redux/items/API/itemRecentAPI";
+  useRecentAccomodationQuery,
+} from "../../redux/items/itemRecentAPI";
 
 function RecentlyListed() {
   let recentItemList;
-  switch(window.location.pathname) {
+  switch (window.location.pathname) {
     case "/":
-      recentItemList = <RecentlyListedItem />
+      recentItemList = <RecentlyListedItem />;
       break;
 
     case "/cars":
-      recentItemList = <RecentlyListedCars />
+      recentItemList = <RecentlyListedCars />;
       break;
 
     case "/accomodation":
-      recentItemList = <RecentlyListedAccomodation />
+      recentItemList = <RecentlyListedAccomodation />;
       break;
 
     default:
-      recentItemList = <RecentlyListedItem />
+      recentItemList = <RecentlyListedItem />;
       break;
   }
   return (
     <section className="recently-listed-section-container">
       <h2 className="section-title">Recently Listed</h2>
-      { recentItemList }
+      {recentItemList}
     </section>
   );
 }
@@ -53,7 +53,7 @@ function RecentlyListedItem() {
         );
       })}
     </div>
-  )
+  );
 }
 
 function RecentlyListedCars() {

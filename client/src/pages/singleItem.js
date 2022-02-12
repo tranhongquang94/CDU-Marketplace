@@ -1,16 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Hero, Searchbar } from "../components/general";
-import {ItemDesc, Thumbnail} from "../components/specific/SingleItem";
+import { ItemDesc, Thumbnail } from "../components/specific/SingleItem";
 import axios from "axios";
 
-function SingleItem({
-  heroCover,
-  searchCategories,
-  closedDropDown,
-  setClosedDropDown,
-  isLoggedIn
-}) {
+function SingleItem({ heroCover, searchCategories }) {
   // Access the URL params by react router hook.
   const [itemData, setItemData] = useState({});
   let { id } = useParams();
@@ -30,13 +24,8 @@ function SingleItem({
 
   return (
     <>
-      <Hero page="homepage" cover={heroCover} isLoggedIn={isLoggedIn} />
-      <Searchbar
-        page="homepage"
-        searchCategories={searchCategories}
-        closedDropDown={closedDropDown}
-        setClosedDropDown={setClosedDropDown}
-      />
+      <Hero page="homepage" cover={heroCover} />
+      <Searchbar page="homepage" searchCategories={searchCategories} />
       <div className="SingleItem-container">
         <Thumbnail thumb={itemData.thumbnail} altText={itemData.name} />
         <ItemDesc
@@ -45,7 +34,7 @@ function SingleItem({
           location={itemData.location}
           createdAt={itemData.createdAt}
           description={itemData.description}
-          postedBy= {itemData.postedBy}
+          postedBy={itemData.postedBy}
         />
       </div>
     </>

@@ -5,17 +5,16 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import Select from "react-select";
 import { data } from "../data/data";
 import axios from "axios";
-import {Link} from 'react-router-dom'; 
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { close } from "../../redux/slice/dropDownSlice";
 
-function Searchbar({
-  page,
-  searchCategories,
-  closedDropDown,
-  setClosedDropDown,
-}) {
+function Searchbar({ page, searchCategories }) {
   const [currentMake, setCurrentMake] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [queryResult, setQueryResult] = useState([]);
+
+  const dispatch = useDispatch();
 
   const { carMakeAndModel } = data;
 
@@ -63,7 +62,7 @@ function Searchbar({
 
   const handleSubmit = (e) => {
     // e.preventDefault();
-    console.log(e.target)
+    console.log(e.target);
   };
 
   //Run everytime search query changes
@@ -78,8 +77,7 @@ function Searchbar({
         )
         .then((res) => {
           setQueryResult(res.data);
-          setClosedDropDown(false);
-          
+          dispatch(close(false));
         })
         .catch((err) => {
           if (axios.isCancel(err)) {
@@ -112,7 +110,6 @@ function Searchbar({
               handleQueryChange={handleQueryChange}
               queryResult={queryResult}
               searchQuery={searchQuery}
-              closedDropDown={closedDropDown}
             />
           </>
         )}
@@ -141,7 +138,6 @@ function Searchbar({
               handleQueryChange={handleQueryChange}
               queryResult={queryResult}
               searchQuery={searchQuery}
-              closedDropDown={closedDropDown}
             />
             <SearchCategories categories={searchCategories} />
           </>
@@ -153,7 +149,6 @@ function Searchbar({
               handleQueryChange={handleQueryChange}
               queryResult={queryResult}
               searchQuery={searchQuery}
-              closedDropDown={closedDropDown}
             />
             <SearchCategories categories={searchCategories} />
           </>
@@ -184,8 +179,9 @@ const SearchCategories = ({ categories }) => {
   );
 };
 
-const SearchQuery = ({ handleQueryChange, queryResult, searchQuery, closedDropDown }) => {
-  
+const SearchQuery = ({ handleQueryChange, queryResult, searchQuery }) => {
+  const closedDropDown = useSelector((state) => state.dropdown);
+
   return (
     <>
       <div className="search-query">
@@ -198,7 +194,9 @@ const SearchQuery = ({ handleQueryChange, queryResult, searchQuery, closedDropDo
           placeholder="I'm looking for..."
           onChange={handleQueryChange}
         />
-      {(queryResult.length !== 0 && closedDropDown === false) && <DropDown queryResult={queryResult} />}
+        {queryResult.length !== 0 && closedDropDown === false && (
+          <DropDown queryResult={queryResult} />
+        )}
       </div>
     </>
   );
@@ -252,8 +250,7 @@ const Price = ({ generatePriceArr }) => {
   );
 };
 
-
-const DropDown = ({queryResult}) => {
+const DropDown = ({ queryResult }) => {
   return (
     <ul className="dropdown-container">
       {queryResult.map((query) => (

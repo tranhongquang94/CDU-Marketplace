@@ -3,8 +3,15 @@ import Modal from "./modal";
 import { Link } from "react-router-dom";
 import { data } from "../data/data";
 import { ReactComponent as MarketplaceLogo } from "../../images/logo/marketplace-logo.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { userLogIn, userLogOut } from "../../redux/slice/userSlice";
 
-function NavBar({ screenWidth, isLoggedIn, setIsLoggedIn, username, setUsername }) {
+function NavBar() {
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const username = useSelector((state) => state.user.username);
+  const screenWidth = useSelector((state) => state.screenWidth);
+  const dispatch = useDispatch();
+
   const { navbar } = data;
   const [menuItems, setMenuItems] = useState(navbar.mainMenu);
   const [dropdownItems, setDropdownItems] = useState(navbar.dropdown);
@@ -12,16 +19,13 @@ function NavBar({ screenWidth, isLoggedIn, setIsLoggedIn, username, setUsername 
     showModal: false,
     tabOpen: "",
   });
-  
 
   const logIn = (username) => {
-    setUsername(username);
-    setIsLoggedIn(true);
+    dispatch(userLogIn(username));
   };
 
   const logOut = () => {
-    setIsLoggedIn(false);
-    setUsername("")
+    dispatch(userLogOut(""));
   };
 
   const changeTab = (tab) => {
@@ -135,7 +139,9 @@ function NavBar({ screenWidth, isLoggedIn, setIsLoggedIn, username, setUsername 
       {isLoggedIn && (
         <>
           <span className="welcome-message">Hello, {username}</span>
-          <button id="logout-btn" className="btn" onClick={logOut}>Log Out</button>
+          <button id="logout-btn" className="btn" onClick={logOut}>
+            Log Out
+          </button>
         </>
       )}
 

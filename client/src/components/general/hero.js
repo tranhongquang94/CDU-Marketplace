@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function Hero({ page, cover, isLoggedIn }) {
+function Hero({ page, cover }) {
   const [heroTitle, setHeroTitle] = useState("");
   const [heroDesc, setHeroDesc] = useState("");
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const capitalize = (str) => {
     let arr = str.split("");
@@ -19,9 +21,9 @@ function Hero({ page, cover, isLoggedIn }) {
   const checkLogin = (e) => {
     if (!isLoggedIn) {
       e.preventDefault();
-      alert("Please log in first before posting any item.")
+      alert("Please log in first before posting any item.");
     }
-  }
+  };
 
   useEffect(() => {
     setHeroTitle(`CDU ${capitalize(page)} Marketplace`);

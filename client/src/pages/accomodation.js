@@ -5,22 +5,11 @@ import {
   AccomodationType,
 } from "../components/specific/accomodation";
 
-function Accomodation({
-  heroCover,
-  searchCategories,
-  closedDropDown,
-  setClosedDropDown,
-  isLoggedIn,
-}) {
+function Accomodation({ heroCover, searchCategories }) {
   return (
     <>
-      <Hero page="accomodation" cover={heroCover} isLoggedIn={isLoggedIn} />
-      <Searchbar
-        page="accomodation"
-        searchCategories={searchCategories}
-        closedDropDown={closedDropDown}
-        setClosedDropDown={setClosedDropDown}
-      />
+      <Hero page="accomodation" cover={heroCover} />
+      <Searchbar page="accomodation" searchCategories={searchCategories} />
       <main>
         <PopularDestination />
         <RecentlyListed />
