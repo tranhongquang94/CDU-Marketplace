@@ -1,8 +1,12 @@
 import React from "react";
 import { IoClose } from "react-icons/io5";
-import axios from "axios";
+import { usePostAccountLoginMutation } from "../../redux/account/accountLoginAPI";
+import { usePostAccountRegisterMutation } from "../../redux/account/accountRegisterAPI";
 
 function Modal({ tabOpen, closeModal, changeTab, login, logout }) {
+  const [postAccountLogin] = usePostAccountLoginMutation();
+  const [postAccountRegister] = usePostAccountRegisterMutation();
+
   return (
     <div className="overlay">
       <div className="modal-container">
@@ -25,27 +29,26 @@ function Modal({ tabOpen, closeModal, changeTab, login, logout }) {
           <form
             action=""
             className="login-form"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              axios
-                .post("/account/login", {
+
+              try {
+                const res = await postAccountLogin({
                   username: document.getElementById("login-username").value,
                   password: document.getElementById("login-password").value,
-                })
-                .then((res) => {
-                  if (res.data.mes) {
-                    alert(res.data.mes);
-                    login(res.data.result.username);
+                }).unwrap();
+                const { mes, result } = res;
+
+                if (mes) {
+                  alert(mes);
+                  if (result) {
+                    login(result.username);
                     closeModal();
-                  } else {
-                    alert(res.data);
                   }
-                })
-                .catch((err) => {
-                  alert(
-                    "There is an issue with the request, please try again."
-                  );
-                });
+                }
+              } catch (error) {
+                console.error(error);
+              }
             }}
           >
             <input
@@ -70,23 +73,25 @@ function Modal({ tabOpen, closeModal, changeTab, login, logout }) {
           <form
             action=""
             className="register-form"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              axios
-                .post("/account/create", {
+              try {
+                const res = await postAccountRegister({
                   username: document.getElementById("register-username").value,
                   password: document.getElementById("register-password").value,
-                })
-                .then((res) => {
-                  alert(res.data.mes);
-                  login(res.data.result.username);
-                  closeModal();
-                })
-                .catch((err) => {
-                  alert(
-                    "There is an issue with the request, please try again."
-                  );
-                });
+                }).unwrap();
+                const { mes, result } = res;
+
+                if (mes) {
+                  alert(mes);
+                  if (result) {
+                    login(result.username);
+                    closeModal();
+                  }
+                }
+              } catch (error) {
+                console.error(error);
+              }
             }}
           >
             <input

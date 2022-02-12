@@ -62,18 +62,22 @@ router.route("/add").post(async (req, res) => {
   }
 });
 
-router.route("/timestamp-signature").get(async (req, res) => {
-  const timestamp = Math.round(new Date().getTime() / 1000);
-  const signature = await cloudinary.utils.api_sign_request(
-    {
-      timestamp: timestamp,
-      upload_preset: "ml_default",
-      source: "uw",
-    },
-    process.env.CLOUDINARY_API_SECRET
-  );
-  res.status(200).json({ timestamp, signature });
-});
+/**
+ * To be delete
+ */
+
+// router.route("/timestamp-signature").get(async (req, res) => {
+//   const timestamp = Math.round(new Date().getTime() / 1000);
+//   const signature = await cloudinary.utils.api_sign_request(
+//     {
+//       timestamp: timestamp,
+//       upload_preset: "ml_default",
+//       source: "uw",
+//     },
+//     process.env.CLOUDINARY_API_SECRET
+//   );
+//   res.status(200).json({ timestamp, signature });
+// });
 
 /**
  * Cars

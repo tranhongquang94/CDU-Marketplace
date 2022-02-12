@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./styles/App.scss";
-import { NavBar, Footer} from "./components/general";
-import { Homepage, Cars, Jobs, Accomodation, NewItem, SingleItem, SearchResult } from "./pages";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import { data }  from "./components/data/data.js";
+import { NavBar, Footer } from "./components/general";
+import {
+  Homepage,
+  Cars,
+  Jobs,
+  Accomodation,
+  NewItem,
+  SingleItem,
+  SearchResult,
+} from "./pages";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import { data } from "./components/data/data.js";
 
 function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -11,12 +24,14 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
-
   const handleClick = (e) => {
-    if (e.target.className !== "search-query-input" && e.target.className !== "dropdown-container") {
+    if (
+      e.target.className !== "search-query-input" &&
+      e.target.className !== "dropdown-container"
+    ) {
       setClosedDropDown(true);
     }
-  }
+  };
 
   useEffect(() => {
     const setWidth = () => {
@@ -116,15 +131,20 @@ function App() {
 }
 
 // Can only view this NewItem component by logging in
-function ProtectedRoute ({component: Component, path: newItemPath, isLoggedIn,...rest}) {
+function ProtectedRoute({
+  component: Component,
+  path: newItemPath,
+  isLoggedIn,
+  ...rest
+}) {
   return (
-    <Route path={newItemPath} render={() =>(
-        isLoggedIn ?
-        <Component {...rest}/> :
-        <Redirect path="/"/>
-      ) 
-    }/>
-  )
+    <Route
+      path={newItemPath}
+      render={() =>
+        isLoggedIn ? <Component {...rest} /> : <Redirect path="/" />
+      }
+    />
+  );
 }
 
 export default App;
